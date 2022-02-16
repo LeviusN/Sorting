@@ -55,36 +55,36 @@ def merge(left, right):
     return l
 
 #--------------------Heap----------------------
-def heap_sort(list):
-    buildMaxHeap(list)
-    n = len(list)
-    while n >= 0:
-        list[0], list[n-1] = list[n-1], list[0]
-        n -= 1
-        heapify(list,0)
+def heapSort(list):
+    n = len(list) 
+    MaxHeap(list,n)
+    for i in range(n-1, 0, -1):
+        list[i], list[0] = list[0], list[i]   
+        heapify(list, i,0)
 
-def buildMaxHeap(list):
-    n = len(list)
-    n_half = mt.floor(n/2)
-    while n_half >= 0:
-        heapify(list, n_half)
-        n_half -= 1
-        
-def heapify(list, i):
-    left = 2*i
-    right = 2*i+1
-    n = len(list)
-    
-    if left <= n and list[left] > list[i]:
-        max = left
+def MaxHeap(list,n):
+    for i in range(mt.floor(n/2), -1, -1):
+        heapify(list, n,i)        
+
+def heapify(list, n,i):
+    largest = i
+    left = 2 * i +1
+    right = 2 * i + 2
+  
+    if left < n and list[i] < list[left]:
+        largest = left
     else:
-        max = i
-    
+        largest = i
+  
+    if right < n and list[largest] < list[right]:
+        largest = right
+  
+    if largest != i:
+        list[i],list[largest] = list[largest],list[i]
+        heapify(list,n,largest)
 
-    print(list)
-    if right-1 <= n and list[right-1] > list[max]:
-        max = right
-    
-    if max != i:
-        list[0], list[max] = list[max], list[0]
-        heapify(list, max)
+  
+
+arr = [ 5, 4,8,6,20,50,12]
+heapSort(arr)
+print (arr)
