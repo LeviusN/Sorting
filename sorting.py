@@ -88,63 +88,41 @@ def heapify(list, n,i):
 arr = [ 5, 4,8,6,20,50,12]
 heapSort(arr)
 print (arr)
-
-
 #------------------------------DFS-------------------------------------------------
 
-class Node:
-    def __init__(self,value,left=None,right=None):
-        self.value=value
-        self.left=left
-        self.right=right
-    def __str__(self):
-        return "Node(" +str(self.value) +")"
+#------------------------------BFS-------------------------------------------------
+#prepare data
+list_of_map={0:[1,2,3], 1:[0,2,4], 2:[0,1,5], 3:[0], 4:[1], 5:[2]}
+queue = Queue()
+bfs_output = []
+visited = {}
+parents = {}
+level = {}
 
-def walk(tree):
-    if tree is not None:
-        print(tree)
-        walk(tree.left)
-        walk(tree.right)
+for point in list_of_map.keys():
+    visited[point]= False
+    parents[point] = None
+    level[point] = -1
 
-mytree=Node('A', Node('B', Node('D'), Node('E')), Node('C', Node('F'), Node('G')))
-walk(mytree)
+#start
+s = 2
+visited[s] = True
+level[s] = 0
+queue.put(s)
 
-#-----------------------------BFS---------------------------------------------------------
-class Node:
-    def __init__(self,value,left=None,right=None):
-        self.value=value
-        self.left=left
-        self.right=right
-    def __str__(self):
-        return "Node(" +str(self.value) +")"
+#algorithm
+while not queue.empty():
+    u = queue.get()
+    bfs_output.append(u)
+    for v in list_of_map[u]:
+        if not visited[v]:
+            visited[v] = True
+            parents[v] = u
+            level[v] = level[u]+1
+            queue.put(v)
+              
+print(bfs_output)
 
 
-def bfs(node,queue):
-    queue.append(node)
-    while len(queue) > 0:
-        node = queue.pop(0)
-        if node is not None:
-            print(node)
-            queue.append(node.left)
-            queue.append(node.right)
-            
-mytree=Node('A', Node('B', Node('D'), Node('E')), Node('C', Node('F'), Node('G')))
-bfs(mytree, [])
 
-#-------------------------------BFS2--------------------------------------------------
 
-def bfs(graph, root):
-    visited = set()
-    queue = [root]
-    
-    while queue:
-        vertex=queue.pop()
-        visited.add(vertex)
-        for i in graph[vertex]:
-            if i not in visited:
-                queue.append(i)
-    print(visited)
-    
-if __name__ == "__main__":
-    graph={0:[1,2,3], 1:[0,2,4], 2:[0,1,5], 3:[0], 4:[1], 5:[2]}
-    bfs(graph,0)
