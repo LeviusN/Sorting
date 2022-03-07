@@ -96,18 +96,13 @@ list_of_map={0:[1,2,3], 1:[0,2,4], 2:[0,1,5], 3:[0], 4:[1], 5:[2]}
 queue = Queue()
 bfs_output = []
 visited = {}
-parents = {}
-level = {}
 
 for point in list_of_map.keys():
     visited[point]= False
-    parents[point] = None
-    level[point] = -1
 
 #start
-s = 2
+s = 1
 visited[s] = True
-level[s] = 0
 queue.put(s)
 
 #algorithm
@@ -117,12 +112,6 @@ while not queue.empty():
     for v in list_of_map[u]:
         if not visited[v]:
             visited[v] = True
-            parents[v] = u
-            level[v] = level[u]+1
             queue.put(v)
               
 print(bfs_output)
-
-
-
-
