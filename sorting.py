@@ -88,7 +88,22 @@ def heapify(list, n,i):
 arr = [ 5, 4,8,6,20,50,12]
 heapSort(arr)
 print (arr)
+
 #------------------------------DFS-------------------------------------------------
+list_of_map={0:[1,2], 1:[0,3,4], 2:[0,7,8], 3:[1,5,6], 4:[1], 5:[3], 6:[3], 7:[2], 8:[2,9,10], 9:[8], 10:[8]}
+visited=set()
+stack=[]
+start=0
+
+def dfs(visited, list_of_map, point):
+    if point not in visited:
+        stack.append(point)
+        visited.add(point)
+        for parent in list_of_map[point]:
+            dfs(visited, list_of_map, parent)
+    return stack
+        
+dfs(visited, list_of_map,start)
 
 #------------------------------BFS-------------------------------------------------
 #prepare data
