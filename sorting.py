@@ -90,6 +90,7 @@ heapSort(arr)
 print (arr)
 
 #------------------------------DFS-------------------------------------------------
+# recursive
 list_of_map={0:[1,2], 1:[0,3,4], 2:[0,7,8], 3:[1,5,6], 4:[1], 5:[3], 6:[3], 7:[2], 8:[2,9,10], 9:[8], 10:[8]}
 visited=set()
 stack=[]
@@ -104,6 +105,28 @@ def dfs(visited, list_of_map, point):
     return stack
         
 dfs(visited, list_of_map,start)
+
+#------------------------------DFS-------------------------------------------------
+# iterative
+list_of_map={0:[1,2], 1:[0,3,4], 2:[0,7,8], 3:[1,5,6], 4:[1], 5:[3], 6:[3], 7:[2], 8:[2,9,10], 9:[8], 10:[8]}
+visited={}
+stack=[]
+start=0
+visit=[]
+
+for point in list_of_map.keys():
+    visited[point]= False
+
+stack = [start]
+while len(stack)>0:
+    start=stack.pop()
+    if not visited[start]:
+        visit.append(start)
+        visited[start]=True
+        for w in list_of_map[start]:
+            if not visited[w]:
+                stack.append(w)
+print(visit)
 
 #------------------------------BFS-------------------------------------------------
 #prepare data
